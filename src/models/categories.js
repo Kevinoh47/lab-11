@@ -6,7 +6,8 @@ import jsonSchema from 'mongoose-schema-jsonschema';
 jsonSchema(mongoose);
 
 const categories = new mongoose.Schema({
-  name: {type: String},
+  name: {type: String, required: true},
+  description: {type: String},
 });
 
 // categories.pre('save', function() {
