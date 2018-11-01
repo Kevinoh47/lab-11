@@ -2,7 +2,9 @@
 
 import express from 'express';
 
-import modelFinder from '../middleware/model-finder.js';
+//import modelFinder from '../middleware/model-finder.js';
+//import products from '../models/products.js';
+import categories from '../models/categories.js';
 
 const router = express.Router();
 
@@ -14,10 +16,14 @@ let sendJSON = (data,response) => {
   response.end();
 };
 
-router.param('model', modelFinder);
+//router.param('model', modelFinder);
 
-router.get('/api/v1/:model', (request,response,next) => {
-  request.model.find()
+router.get('/api/v1/categories/schema', (request,response) => {
+  sendJSON(categories.schema(), response);
+});
+
+router.get('/api/v1/categories', (request,response,next) => {
+  categories.find()
     .then( data => {
       const output = {
         count: data.length,
@@ -25,37 +31,46 @@ router.get('/api/v1/:model', (request,response,next) => {
       };
       sendJSON(output, response);
     })
-    .catch( next );
+    .catch(next);
 });
 
-router.get('/api/v1/:model/:id', (request,response,next) => {
-  request.model.find({_id:request.params.id})
-    .then( result => sendJSON(result, response) )
-    .catch( next );
+router.get('/api/v1/categories/:id', (request,response,next) => {
+  categories.find({_id:request.params.id})
+    .then( result => sendJSON(result[0], response))
+    .catch(error => {return next(error);});
 });
 
-router.post('/api/v1/:model', (request,response,next) => {
-  request.model.save(request.body)
-    .then( result => sendJSON(result, response) )
-    .catch( next );
+router.post('/api/v1/categories', (request,response,next) => {
+  let category = new categories(request.body);
+  categories.save()
+    .then ( result => sendJSON(result, response))
+    .catch(error => {return next(error);});
 });
 
 router.put('/api/v1/:model/:id', (request,response,next) => {
-  request.model.save(request.params.id, request.body)
+  // put requires id in body
+  request.body._id = request.params.id;
+  categories.findByIdAndUpdate(request.params.id, request.body)
     .then( result => sendJSON(result, response) )
     .catch( next );
 });
 
 router.patch('/api/v1/:model/:id', (request,response,next) => {
-  request.model.patch(request.params.id, request.body)
-    .then( result => sendJSON(result, response) )
-    .catch( next );
+  categories.findByIdAndUpdate(request.params.id, request.body)
+    .then(result => sendJSON(result, response))
+    .catch(next);
 });
 
-router.delete('/api/v1/:model/:id', (request,response,next) => {
-  request.model.delete(request.params.id)
-    .then( result => sendJSON(result, response) )
-    .catch( next );
+router.delete('/api/v1/categories/:id', (request,response,next) => {
+  categories.findByIdAndRemove(request.params.id)
+    .then( result => {
+      if(!result) {
+        throw `could not find id ${request.params.id} to delete.`
+      }
+      sendJSON(result, response);
+    })
+
+    .catch(next);
 });
 
 export default router;

@@ -1,35 +1,24 @@
 'use strict';
 
-import storage from '../lib/storage/storage.js';
+import mongoose from 'mongoose';
+import jsonSchema from 'mongoose-schema-jsonschema';
+jsonSchema(mongoose);
 
-class Products{
+const products = mongoose.Schema({
+  title: {type:String, require:true},
+  text: {type: String},
+});
 
-  static findOne(id) {
-    let query = { _id:id };
-    return this.find(query);
-  }
+products.pre('save', function() {
+  // console.log('doing the new thing with', this);
+});
 
-  static find(query) {
-    return storage.find(query);
-  }
+products.pre('update', function() {
+  // console.log('doing the update thing with', this);
+});
 
-  static save(data) {
-    return storage.save(data);
-  }
+products.pre('findOneAndRemove', function() {
+  // console.log('bye bye bye');
+});
 
-  static delete(id) {
-    return storage.delete(id);
-  }
-
-  static put(id, data) {
-    return storage.save(data);
-  }
-
-  static patch(id, data) {
-    data._id = id;
-    return storage.save(data);
-  }
-
-}
-
-export default Products;
+export default mongoose.model('products', products);

@@ -1,35 +1,25 @@
+
 'use strict';
 
-import storage from '../lib/storage/storage.js';
+import mongoose from 'mongoose';
+import jsonSchema from 'mongoose-schema-jsonschema';
+jsonSchema(mongoose);
 
-class Categories {
+const categories = mongoose.Schema({
+  title: {type:String, require:true},
+  text: {type: String},
+});
 
-  static findOne(id) {
-    let query = { _id:id };
-    return this.find(query);
-  }
+categories.pre('save', function() {
+  // console.log('doing the new thing with', this);
+});
 
-  static find(query) {
-    return storage.find(query);
-  }
+categories.pre('update', function() {
+  // console.log('doing the update thing with', this);
+});
 
-  static save(data) {
-    return storage.save(data);
-  }
+categories.pre('findOneAndRemove', function() {
+  // console.log('bye bye bye');
+});
 
-  static delete(id) {
-    return storage.delete(id);
-  }
-
-  static put(id, data) {
-    return storage.save(data);
-  }
-
-  static patch(id, data) {
-    data._id = id;
-    return storage.save(data);
-  }
-
-}
-
-export default Categories;
+export default mongoose.model('categories', categories);
