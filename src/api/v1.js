@@ -4,6 +4,7 @@ import express from 'express';
 
 //import modelFinder from '../middleware/model-finder.js';
 //import products from '../models/products.js';
+
 import categories from '../models/categories.js';
 
 const router = express.Router();
@@ -42,12 +43,12 @@ router.get('/api/v1/categories/:id', (request,response,next) => {
 
 router.post('/api/v1/categories', (request,response,next) => {
   let category = new categories(request.body);
-  categories.save()
+  category.save()
     .then ( result => sendJSON(result, response))
     .catch(error => {return next(error);});
 });
 
-router.put('/api/v1/:model/:id', (request,response,next) => {
+router.put('/api/v1/categories/:id', (request,response,next) => {
   // put requires id in body
   request.body._id = request.params.id;
   categories.findByIdAndUpdate(request.params.id, request.body)
@@ -55,7 +56,7 @@ router.put('/api/v1/:model/:id', (request,response,next) => {
     .catch( next );
 });
 
-router.patch('/api/v1/:model/:id', (request,response,next) => {
+router.patch('/api/v1/categories/:id', (request,response,next) => {
   categories.findByIdAndUpdate(request.params.id, request.body)
     .then(result => sendJSON(result, response))
     .catch(next);
@@ -65,7 +66,7 @@ router.delete('/api/v1/categories/:id', (request,response,next) => {
   categories.findByIdAndRemove(request.params.id)
     .then( result => {
       if(!result) {
-        throw `could not find id ${request.params.id} to delete.`
+        throw `could not find id ${request.params.id} to delete.`;
       }
       sendJSON(result, response);
     })
