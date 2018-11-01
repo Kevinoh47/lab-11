@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "![CF](http://i.imgur.com/7v5ASc8.png) LAB - ORM ===============================================",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -21,8 +21,19 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "jest": "^23.6.0",
+    "mongodb-memory-server": "^2.6.2",
+    "mongoose": "^5.3.8",
+    "mongoose-schema-jsonschema": "^1.1.15",
     "morgan": "^1.9.0",
     "require-dir": "^1.1.0",
     "supertest": "^3.3.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kevinoh47/lab-11.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Kevinoh47/lab-11/issues"
+  },
+  "homepage": "https://github.com/Kevinoh47/lab-11#readme"
 }
