@@ -5,7 +5,14 @@ import express from 'express';
 //import modelFinder from '../middleware/model-finder.js';
 //import products from '../models/products.js';
 
-import categories from '../models/categories.js';
+// TODO  to be able to switch back and forth between mongo and filesystem storage, we will need to switch between /models/categories.js and /models/mongo/categories.js. But 'import' must be at top level
+// let storage = process.env.STORAGE;
+// if (storage === 'mongo') {
+//   import categories from '../models/mongo/categories.js';
+// } else {
+//   import categories from '../models/categories.js';
+// }
+import categories from '../models/mongo/categories.js';
 
 const router = express.Router();
 

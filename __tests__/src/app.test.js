@@ -35,6 +35,22 @@ describe('API Server', () => {
       });
   });
 
+  it('post(/api/vi/categories... should take an object and save it', () => {
+    let obj = {name:'foo', description:'bar'};
+    
+    return mockRequest  
+      .post('/api/v1/categories')
+      .send(obj)
+      .then( results => { 
+        expect(results.status).toBe(200);
+        expect(results.body.name).toEqual(obj.name);
+        expect(results.body._id).toBeDefined();
+      })
+      .catch(err => {
+        expect(err).not.toBeDefined();
+      });
+  });
+
 });
 
 
