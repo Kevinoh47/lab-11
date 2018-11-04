@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config(); // see Ashton
 
 // Mock the Mongo DB server
 import mongoose from 'mongoose';
@@ -35,7 +36,7 @@ describe('API Server', () => {
       });
   });
 
-  it('post(/api/vi/categories... should take an object and save it', () => {
+  it('post(/api/v1/categories... should take an object and save it', () => {
     let obj = {name:'foo', description:'bar'};
     
     return mockRequest  

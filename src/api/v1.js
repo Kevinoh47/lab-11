@@ -12,6 +12,7 @@ import express from 'express';
 // } else {
 //   import categories from '../models/categories.js';
 // }
+
 import categories from '../models/mongo/categories.js';
 
 const router = express.Router();
@@ -49,8 +50,9 @@ router.get('/api/v1/categories/:id', (request,response,next) => {
 });
 
 router.post('/api/v1/categories', (request,response,next) => {
-  let category = new categories(request.body);
-  category.save()
+  //let category = new categories(request.body);
+  //category.save(request.body)
+  categories(request.body)
     .then ( result => sendJSON(result, response))
     .catch(error => {return next(error);});
 });
