@@ -1,26 +1,37 @@
-
 'use strict';
 
-import mongoose from 'mongoose';
-import jsonSchema from 'mongoose-schema-jsonschema';
-jsonSchema(mongoose);
+import Storage from '../lib/storage/storage.js';
+import schema from './mongo/categories-schema.js';
 
-const categories = new mongoose.Schema({
-  name: {type: String, required: true},
-  description: {type: String},
-});
+const storage = new Storage(schema);
 
-/* TODO figure out what mongoose.pre function is for . these middleware functions came in the scaffolding code... */
-categories.pre('save', function() {
-  console.log('doing the save new thing with', this);
-});
+class Categories {
 
-categories.pre('update', function() {
-  console.log('doing the update thing with', this);
-});
+  static find(query) {
+    return storage.find(query);
+  }
 
-categories.pre('findOneAndRemove', function() {
-  console.log('bye bye bye');
-});
+  static findOne(id) {
+    let query = { _id:id };
+    return this.find(query);
+  }
 
-export default mongoose.model('categories', categories);
+  static schema() {
+    return typeof schema.jsonSchema === 'function' ? schema.jsonSchema() : {};
+  }
+
+  static save(data) {
+    return storage.save(data);
+  }
+ 
+  static put(id, data) {
+    return storage.save(data);
+  }
+
+  static delete(id) {
+    return storage.delete(id);
+  }
+
+}
+
+export default Categories;
