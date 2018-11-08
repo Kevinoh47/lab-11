@@ -1,11 +1,9 @@
 'use strict';
 
-jest.mock('require-dir');
-
 import modelFinder from '../../../src/middleware/model-finder.js';
 
 describe('Model Finder Middleware', () => {
-  it('throws an error if a valid model is not presnt', () => {
+  it('throws an error if a valid model is not present', () => {
     let req = {params:{}};
     let res = {};
     let next = jest.fn();

@@ -1,10 +1,17 @@
 'use strict';
-require('dotenv').config(); // see Ashton
+
+
+require('dotenv').config('../../.env'); 
+
+//process.env.STORAGE = 'mongo';
 
 // Mock the Mongo DB server
 import mongoose from 'mongoose';
 import MongoMemoryServer from 'mongodb-memory-server';
 let mongoServer;
+
+// Unmock our model (it was previously mocked for the model finder and we don't want that mock here. So we have to unmock it. )
+jest.unmock('require-directory');
 
 // Mock the API Server
 const {server} = require('../../src/app.js');
@@ -37,7 +44,7 @@ describe('API Server', () => {
   });
 
   it('post(/api/v1/categories... should take an object and save it', () => {
-    let obj = {name:'foo', description:'bar'};
+    let obj = {name:'foo'};
     
     return mockRequest  
       .post('/api/v1/categories')

@@ -11,16 +11,16 @@ const products = new mongoose.Schema({
   category:({type:String}),
 });
 
-products.pre('save', function() {
-  // console.log('doing the new thing with', this);
-});
+// products.pre('save', function() {
+//   // console.log('doing the new thing with', this);
+// });
 
-products.pre('update', function() {
-  // console.log('doing the update thing with', this);
-});
+// products.pre('update', function() {
+//   // console.log('doing the update thing with', this);
+// });
 
-products.pre('findOneAndRemove', function() {
-  // console.log('bye bye bye');
-});
+// products.pre('findOneAndRemove', function() {
+//   // console.log('bye bye bye');
+// });
 
 export default mongoose.model('products', products);
