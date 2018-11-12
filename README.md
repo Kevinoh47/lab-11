@@ -1,6 +1,10 @@
 ![CF](http://i.imgur.com/7v5ASc8.png) LAB - ORM
 ===============================================
+## Travis CI
+[![Build Status](https://travis-ci.com/Kevinoh47/lab-11.svg?branch=working11)](https://travis-ci.com/Kevinoh47/lab-11)
 
+## Heroku URL
+https://codefellows-401-lab11.herokuapp.com/
 
 ## Before you begin
 * You will be continuing to work on your API server

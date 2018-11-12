@@ -11,27 +11,36 @@ import notFound from './middleware/404.js';
 import apiRouter from './api/v1.js';
 
 // Prepare the express app
-const server = express();
+const app = express();
 
 // App Level MW
-server.use(cors());
-server.use(morgan('dev'));
+app.use(cors());
+app.use(morgan('dev'));
 
-server.use(express.json());
-server.use(express.urlencoded({extended:true}));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 // Routes
-server.use(apiRouter);
+app.use(apiRouter);
 
 // Catchalls
-server.use(notFound);
-server.use(errorHandler);
+app.use(notFound);
+app.use(errorHandler);
 
-const start = (port) => {
-  server.listen(port, () => {
-    console.log(`Server Up on ${port}`);
-  });
+let isRunning = false;
+
+module.exports = {
+  server: app,
+  start: (port) => {
+    if( ! isRunning ) {
+      app.listen(port, () => {
+        isRunning = true;
+        console.log(`Server Up on ${port}`);
+      });
+    }
+    else {
+      console.log('Server is already running');
+    }
+  },
 };
-
-module.exports = { server, start };
 

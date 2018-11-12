@@ -1,8 +1,8 @@
 'use strict';
 
-import requireAll from 'require-dir';
+import requireDirectory from 'require-directory';
 
-const models = requireAll('../models');
+const models = requireDirectory(module, '../models', {recurse: false});
 
 /*
 {
