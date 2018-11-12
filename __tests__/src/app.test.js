@@ -72,7 +72,7 @@ describe('API Server', () => {
 
   it('should be able to post to /api/v1/categories', ()  => {
 
-    let obj = {name:'fruit',description:'Our store has fruit'};
+    let obj = {name:'cheese',description:'Cheese from around the world'};
 
     return mockRequest
       .post('/api/v1/categories')

@@ -11,15 +11,15 @@ const categories = new mongoose.Schema({
 });
 
 categories.pre('save', function() {
-  console.log('doing the save new thing with', this);
+  console.log('mongoose pre save for this: ', this);
 });
 
 categories.pre('update', function() {
-  console.log('doing the update thing with', this);
+  console.log('mongoose pre update for this: ', this);
 });
 
 categories.pre('findOneAndRemove', function() {
-  console.log('bye bye bye');
+  console.log('mongoose pre delete for this: ', this);
 });
 
 export default mongoose.model('categories', categories);
