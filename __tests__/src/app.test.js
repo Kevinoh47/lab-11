@@ -1,6 +1,5 @@
 'use strict';
 
-//require('dotenv').config('../../.env'); 
 process.env.STORAGE = 'mongo';
 
 // Mock the Mongo DB server
